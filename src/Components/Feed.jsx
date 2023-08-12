@@ -1,7 +1,7 @@
 import { useState, useEffect} from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import { Sidebar, Videos } from './'
-import { fetchFromAPI } from '../utils/fetchFromAPI.js';
+import { fetchFromAPI } from '../utils/fetchFromAPI'
 
 const Feed = () => {
 
@@ -9,10 +9,16 @@ const Feed = () => {
     const [videos, setVideos] = useState([]);
 
 
-  useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
-      .then((data) => setVideos(data.items))
-  }, [selectedCategory]);
+useEffect(() => {
+  fetchFromAPI(`search`, {
+    params: {
+      part: 'snippet',
+      q: selectedCategory,
+    }
+  })
+  .then((data) => setVideos(data.items))
+}, [selectedCategory]);
+
 
   return (
     <Stack sx={{ flexDirection: { sx:"column", md: "row" }}} >
